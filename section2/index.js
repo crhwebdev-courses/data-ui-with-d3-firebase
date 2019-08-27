@@ -6,21 +6,24 @@ const svg = canvas.append('svg');
 
 svg.attr('height', 600).attr('width', 600);
 
+//create a d3 group
+const group = svg.append('g');
+
 //append shapes to svg container
-svg
+group
   .append('rect')
   .attr('width', 200)
   .attr('height', 100)
   .attr('fill', 'blue')
   .attr('x', 20)
   .attr('y', 20);
-svg
+group
   .append('circle')
   .attr('r', 50)
   .attr('cx', 300)
   .attr('cy', 70)
   .attr('fill', 'pink');
-svg
+group
   .append('line')
   .attr('x1', 370)
   .attr('x2', 400)
@@ -28,7 +31,7 @@ svg
   .attr('y2', 120)
   .attr('stroke', 'red');
 
-svg
+group
   .append('text')
   .attr('x', 20)
   .attr('y', 200)
