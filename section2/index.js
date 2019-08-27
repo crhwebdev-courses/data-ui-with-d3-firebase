@@ -27,3 +27,12 @@ svg
   .attr('y1', 20)
   .attr('y2', 120)
   .attr('stroke', 'red');
+
+svg
+  .append('text')
+  .attr('x', 20)
+  .attr('y', 200)
+  .attr('fill', 'grey')
+  .text('Hello, Ninjas!')
+  .style('font-family', 'arial')
+  .style('font-size', 50);
