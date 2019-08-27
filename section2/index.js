@@ -7,7 +7,7 @@ const svg = canvas.append('svg');
 svg.attr('height', 600).attr('width', 600);
 
 //create a d3 group
-const group = svg.append('g');
+const group = svg.append('g').attr('transform', 'translate(0, 100)');
 
 //append shapes to svg container
 group
