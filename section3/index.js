@@ -7,11 +7,15 @@ const data = [
 const svg = d3.select('svg');
 
 //example of including data and deriving attributes from the data
-const rect = svg
-  //select multiple element
+const rects = svg
+  //select multiple elements
   .selectAll('rect')
-  //include data
+  //join data to rects
   .data(data)
+  //enter part of cycle where virtual nodes can be updated
+  .enter()
+  //create a node for each data point
+  .append('rect')
   //set attributes
   .attr('width', d => d.width)
   .attr('height', d => d.height)
