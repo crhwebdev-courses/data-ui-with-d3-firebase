@@ -11,4 +11,13 @@ d3.json('menu.json').then(data => {
     .attr('height', d => d.orders)
     .attr('fill', 'orange')
     .attr('x', (d, i) => i * 70);
+
+  // append the enter selection to the DOM
+  rects
+    .enter()
+    .append('rect')
+    .attr('width', 50)
+    .attr('height', d => d.orders)
+    .attr('fill', 'orange')
+    .attr('x', (d, i) => i * 70);
 });
