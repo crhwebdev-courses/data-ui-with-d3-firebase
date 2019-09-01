@@ -3,12 +3,21 @@ const svg = d3.select('svg');
 
 //get data from json file
 d3.json('menu.json').then(data => {
+  //return mininum value for orders from dataset
+  // const min = d3.min(data, d => d.orders);
+
+  //return maxinum value for orders from dataset
+  const max = d3.max(data, d => d.orders);
+
+  //return an array with a mininum and maximum value
+  // const extent = d3.extent(data, d => d.orders);
+
   //create scale for y value -
   //this will scale the values in the domain (data set values of 0 to 1000)
   //to fit the range 0 to 50
   const y = d3
     .scaleLinear()
-    .domain([0, 1000])
+    .domain([0, max])
     .range([0, 500]);
 
   //create a band scale for x value -
