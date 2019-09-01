@@ -17,7 +17,9 @@ d3.json('menu.json').then(data => {
   const x = d3
     .scaleBand()
     .domain(data.map(item => item.name))
-    .range([0, 500]);
+    .range([0, 500])
+    .paddingInner(0.2)
+    .paddingOuter(0.2);
 
   // join the data to rects
   const rects = svg.selectAll('rect').data(data);
