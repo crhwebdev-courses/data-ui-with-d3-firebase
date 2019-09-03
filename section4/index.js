@@ -5,6 +5,18 @@ const svg = d3
   .attr('width', 600)
   .attr('height', 600);
 
+// create margins and dimensions
+const margin = { top: 20, right: 20, bottom: 100, left: 100 };
+const graphWidth = 600 - margin.left - margin.right;
+const graphHeight = 600 - margin.top - margin.bottom;
+
+//create graph group and center
+const graph = svg
+  .append('g')
+  .attr('width', graphWidth)
+  .attr('height', graphHeight)
+  .attr('transform', `translate(${margin.left},${margin.top})`);
+
 //get data from json file
 d3.json('menu.json').then(data => {
   //return mininum value for orders from dataset
@@ -35,7 +47,7 @@ d3.json('menu.json').then(data => {
     .paddingOuter(0.2);
 
   // join the data to rects
-  const rects = svg.selectAll('rect').data(data);
+  const rects = graph.selectAll('rect').data(data);
 
   rects
     .attr('width', x.bandwidth)
