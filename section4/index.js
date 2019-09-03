@@ -1,5 +1,9 @@
 //select html element where d3 will do its magic
-const svg = d3.select('svg');
+const svg = d3
+  .select('.canvas')
+  .append('svg')
+  .attr('width', 600)
+  .attr('height', 600);
 
 //get data from json file
 d3.json('menu.json').then(data => {
