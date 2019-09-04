@@ -40,7 +40,7 @@ d3.json('menu.json').then(data => {
   const y = d3
     .scaleLinear()
     .domain([0, max])
-    .range([0, graphHeight]);
+    .range([graphHeight, 0]);
 
   //create a band scale for x value -
   // this will scale the values based on the number of items in the
@@ -57,20 +57,20 @@ d3.json('menu.json').then(data => {
 
   rects
     .attr('width', x.bandwidth)
-    .attr('height', d => y(d.orders))
+    .attr('height', d => graphHeight - y(d.orders))
     .attr('fill', 'orange')
-    .attr('x', d => x(d.name));
-  // .attr('y', d => 500 - y(d.orders));
+    .attr('x', d => x(d.name))
+    .attr('y', d => y(d.orders));
 
   // append the enter selection to the DOM
   rects
     .enter()
     .append('rect')
     .attr('width', x.bandwidth)
-    .attr('height', d => y(d.orders))
+    .attr('height', d => graphHeight - y(d.orders))
     .attr('fill', 'orange')
-    .attr('x', d => x(d.name));
-  // .attr('y', d => 500 - y(d.orders));
+    .attr('x', d => x(d.name))
+    .attr('y', d => y(d.orders));
 
   // create and call the axes using d3 functions
   const xAxis = d3.axisBottom(x);
