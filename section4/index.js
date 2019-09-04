@@ -17,6 +17,10 @@ const graph = svg
   .attr('height', graphHeight)
   .attr('transform', `translate(${margin.left},${margin.top})`);
 
+//create groups for x and y
+const xAxisGroup = graph.append('g');
+const yAxisGroup = graph.append('g');
+
 //get data from json file
 d3.json('menu.json').then(data => {
   //return mininum value for orders from dataset
@@ -65,4 +69,6 @@ d3.json('menu.json').then(data => {
     .attr('fill', 'orange')
     .attr('x', d => x(d.name))
     .attr('y', d => 500 - y(d.orders));
+
+  // create and call the xes
 });
