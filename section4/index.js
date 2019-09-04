@@ -70,5 +70,7 @@ d3.json('menu.json').then(data => {
     .attr('x', d => x(d.name))
     .attr('y', d => 500 - y(d.orders));
 
-  // create and call the xes
+  // create and call the axes using d3 functions
+  const xAxis = d3.axisBottom(x);
+  const yAxis = d3.axisLeft(y);
 });
