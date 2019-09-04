@@ -18,7 +18,9 @@ const graph = svg
   .attr('transform', `translate(${margin.left},${margin.top})`);
 
 //create groups for x and y
-const xAxisGroup = graph.append('g');
+const xAxisGroup = graph
+  .append('g')
+  .attr('transform', `translate(0, ${graphHeight})`);
 const yAxisGroup = graph.append('g');
 
 //get data from json file
@@ -38,7 +40,7 @@ d3.json('menu.json').then(data => {
   const y = d3
     .scaleLinear()
     .domain([0, max])
-    .range([0, 500]);
+    .range([0, graphHeight]);
 
   //create a band scale for x value -
   // this will scale the values based on the number of items in the
@@ -46,7 +48,7 @@ d3.json('menu.json').then(data => {
   const x = d3
     .scaleBand()
     .domain(data.map(item => item.name))
-    .range([0, 500])
+    .range([0, graphWidth])
     .paddingInner(0.2)
     .paddingOuter(0.2);
 
@@ -71,7 +73,7 @@ d3.json('menu.json').then(data => {
   // .attr('y', d => 500 - y(d.orders));
 
   // create and call the axes using d3 functions
-  const xAxis = d3.axisTop(x);
+  const xAxis = d3.axisBottom(x);
   const yAxis = d3.axisLeft(y);
 
   xAxisGroup.call(xAxis);
