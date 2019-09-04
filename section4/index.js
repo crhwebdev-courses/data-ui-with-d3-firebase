@@ -74,7 +74,10 @@ d3.json('menu.json').then(data => {
 
   // create and call the axes using d3 functions
   const xAxis = d3.axisBottom(x);
-  const yAxis = d3.axisLeft(y);
+  const yAxis = d3
+    .axisLeft(y)
+    .ticks(3)
+    .tickFormat(d => `${d} orders`);
 
   xAxisGroup.call(xAxis);
   yAxisGroup.call(yAxis);
