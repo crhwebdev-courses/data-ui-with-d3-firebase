@@ -27,11 +27,6 @@ const yAxisGroup = graph.append('g');
 db.collection('dishes')
   .get()
   .then(res => {
-    // let data = [];
-    // res.docs.forEach(doc => {
-    //   data.push(doc.data());
-    // });
-
     const data = res.docs.map(doc => doc.data());
 
     //return mininum value for orders from dataset
