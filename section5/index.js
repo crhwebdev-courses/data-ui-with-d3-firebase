@@ -29,21 +29,12 @@ db.collection('dishes')
   .then(res => {
     const data = res.docs.map(doc => doc.data());
 
-    //return mininum value for orders from dataset
-    // const min = d3.min(data, d => d.orders);
-
-    //return maxinum value for orders from dataset
-    const max = d3.max(data, d => d.orders);
-
-    //return an array with a mininum and maximum value
-    // const extent = d3.extent(data, d => d.orders);
-
     //create scale for y value -
     //this will scale the values in the domain (data set values of 0 to 1000)
     //to fit the range 0 to 50
     const y = d3
       .scaleLinear()
-      .domain([0, max])
+      .domain([0, d3.max(data, d => d.orders)])
       .range([graphHeight, 0]);
 
     //create a band scale for x value -
@@ -56,9 +47,8 @@ db.collection('dishes')
       .paddingInner(0.2)
       .paddingOuter(0.2);
 
-    // join the data to rects
     const rects = graph.selectAll('rect').data(data);
-
+    // 4. update current shapes in the dom
     rects
       .attr('width', x.bandwidth)
       .attr('height', d => graphHeight - y(d.orders))
@@ -66,7 +56,7 @@ db.collection('dishes')
       .attr('x', d => x(d.name))
       .attr('y', d => y(d.orders));
 
-    // append the enter selection to the DOM
+    // 5. append the enter selection to the dom
     rects
       .enter()
       .append('rect')
@@ -92,3 +82,32 @@ db.collection('dishes')
       .attr('text-anchor', 'end')
       .attr('fill', 'orange');
   });
+
+const update = data => {
+  // 1. update scales (domains) if they rely on our data
+  y.domain([0, d3.max(data, d => d.orders)]);
+
+  // 2. join updated data to elements
+  const rects = graph.selectAll('rect').data(data);
+
+  // 3. remove unwanted (if any) shapes using the exit selection
+  rects.exit().remove();
+
+  // 4. update current shapes in the dom
+  rects
+    .attr('width', x.bandwidth)
+    .attr('height', d => graphHeight - y(d.orders))
+    .attr('fill', 'orange')
+    .attr('x', d => x(d.name))
+    .attr('y', d => y(d.orders));
+
+  // 5. append the enter selection to the dom
+  rects
+    .enter()
+    .append('rect')
+    .attr('width', x.bandwidth)
+    .attr('height', d => graphHeight - y(d.orders))
+    .attr('fill', 'orange')
+    .attr('x', d => x(d.name))
+    .attr('y', d => y(d.orders));
+};
