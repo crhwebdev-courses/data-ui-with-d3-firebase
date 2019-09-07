@@ -104,6 +104,7 @@ db.collection('dishes').onSnapshot(res => {
   update(data);
 });
 
+// old update database update that only fires once and does not track changes
 // db.collection('dishes')
 //   .get()
 //   .then(res => {
