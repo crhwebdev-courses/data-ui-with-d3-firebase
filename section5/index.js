@@ -94,7 +94,6 @@ let data = [];
 db.collection('dishes').onSnapshot(res => {
   res.docChanges().forEach(change => {
     const doc = { ...change.doc.data(), id: change.doc.id };
-    console.log(doc);
     switch (change.type) {
       case 'added':
         data.push(doc);
