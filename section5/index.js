@@ -71,11 +71,11 @@ const update = data => {
   rects
     .attr('width', x.bandwidth)
     .attr('fill', 'orange')
-    .attr('x', d => x(d.name))
-    //animate bars based on new height and y position if modified
-    .transition(t)
-    .attr('y', d => y(d.orders))
-    .attr('height', d => graphHeight - y(d.orders));
+    .attr('x', d => x(d.name));
+  //animate bars based on new height and y position if modified
+  // .transition(t)
+  // .attr('y', d => y(d.orders))
+  // .attr('height', d => graphHeight - y(d.orders));
 
   // append the enter selection to the dom
   rects
@@ -86,6 +86,8 @@ const update = data => {
     .attr('fill', 'orange')
     .attr('x', d => x(d.name))
     .attr('y', graphHeight)
+    //apply following section to both update above and enter selection
+    .merge(rects)
     //animate bars upward from zero to starting height and y position
     .transition(t)
     .attr('y', d => y(d.orders))
