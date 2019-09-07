@@ -73,15 +73,20 @@ const update = data => {
     .attr('x', d => x(d.name))
     .attr('y', d => y(d.orders));
 
-  // 5. append the enter selection to the dom
+  // append the enter selection to the dom
   rects
     .enter()
     .append('rect')
     .attr('width', x.bandwidth)
-    .attr('height', d => graphHeight - y(d.orders))
+    .attr('height', 0)
     .attr('fill', 'orange')
     .attr('x', d => x(d.name))
-    .attr('y', d => y(d.orders));
+    .attr('y', graphHeight)
+    //animate bars upward from starting height and y position
+    .transition()
+    .duration(500)
+    .attr('y', d => y(d.orders))
+    .attr('height', d => graphHeight - y(d.orders));
 
   //call axes
   xAxisGroup.call(xAxis);
