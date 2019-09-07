@@ -68,10 +68,13 @@ const update = data => {
   // update current shapes in the dom
   rects
     .attr('width', x.bandwidth)
-    .attr('height', d => graphHeight - y(d.orders))
     .attr('fill', 'orange')
     .attr('x', d => x(d.name))
-    .attr('y', d => y(d.orders));
+    //animate bars based on new height and y position if modified
+    .transition()
+    .duration(500)
+    .attr('y', d => y(d.orders))
+    .attr('height', d => graphHeight - y(d.orders));
 
   // append the enter selection to the dom
   rects
@@ -82,7 +85,7 @@ const update = data => {
     .attr('fill', 'orange')
     .attr('x', d => x(d.name))
     .attr('y', graphHeight)
-    //animate bars upward from starting height and y position
+    //animate bars upward from zero to starting height and y position
     .transition()
     .duration(500)
     .attr('y', d => y(d.orders))
@@ -93,16 +96,26 @@ const update = data => {
   yAxisGroup.call(yAxis);
 };
 
-let data = [];
+var data = [];
 
 //get data from firestore database
 db.collection('dishes').onSnapshot(res => {
   res.docChanges().forEach(change => {
     const doc = { ...change.doc.data(), id: change.doc.id };
-    data = [...data, doc];
 
-    if (change.type === 'removed') {
-      data = data.filter(item => item.id !== doc.id);
+    switch (change.type) {
+      case 'added':
+        data.push(doc);
+        break;
+      case 'modified':
+        const index = data.findIndex(item => item.id == doc.id);
+        data[index] = doc;
+        break;
+      case 'removed':
+        data = data.filter(item => item.id !== doc.id);
+        break;
+      default:
+        break;
     }
   });
 
