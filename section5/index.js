@@ -53,6 +53,8 @@ xAxisGroup
   .attr('text-anchor', 'end')
   .attr('fill', 'orange');
 
+const t = d3.transition().duration(500);
+
 //update function
 const update = data => {
   // update scales (domains) if they rely on our data
@@ -71,8 +73,7 @@ const update = data => {
     .attr('fill', 'orange')
     .attr('x', d => x(d.name))
     //animate bars based on new height and y position if modified
-    .transition()
-    .duration(500)
+    .transition(t)
     .attr('y', d => y(d.orders))
     .attr('height', d => graphHeight - y(d.orders));
 
@@ -86,8 +87,7 @@ const update = data => {
     .attr('x', d => x(d.name))
     .attr('y', graphHeight)
     //animate bars upward from zero to starting height and y position
-    .transition()
-    .duration(500)
+    .transition(t)
     .attr('y', d => y(d.orders))
     .attr('height', d => graphHeight - y(d.orders));
 
