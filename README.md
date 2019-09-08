@@ -6,9 +6,9 @@ Based on the following github project: [https://github.com/iamshaunjp/data-ui-wi
 
 ## Setup
 
-### Section5
+### Section5, Project 1
 
-You need to create a firebase firestore project and then add a **config.js** file with the following format:
+You need to create a firebase firestore project and then add a **config.js** file to the root directory with the following format:
 
 ```
 const config = {
