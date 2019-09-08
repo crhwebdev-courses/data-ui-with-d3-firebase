@@ -12,3 +12,18 @@ const svg = d3
 const graph = svg
   .append('g')
   .attr('transform', `translate(${cent.x}, ${cent.y})`);
+
+// create funtion to generate pie chart using d3 pie function - will
+// use the cost element from data that is passed in to create chart
+const pie = d3
+  .pie()
+  .sort(null)
+  .value(d => d.cost);
+
+const angles = pie([
+  { name: 'rent', cost: 500 },
+  { name: 'bills', cost: 300 },
+  { name: 'gaming', cost: 200 }
+]);
+
+console.log(angles);
