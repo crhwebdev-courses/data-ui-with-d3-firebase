@@ -81,15 +81,17 @@ const update = data => {
   rects
     .enter()
     .append('rect')
-    .attr('width', x.bandwidth)
+    .attr('width', 0)
     .attr('height', 0)
     .attr('fill', 'orange')
     .attr('x', d => x(d.name))
     .attr('y', graphHeight)
+
     //apply following section to both update above and enter selection
     .merge(rects)
     //animate bars upward from zero to starting height and y position
     .transition(t)
+    .attrTween('width', widthTween)
     .attr('y', d => y(d.orders))
     .attr('height', d => graphHeight - y(d.orders));
 
@@ -135,3 +137,16 @@ db.collection('dishes').onSnapshot(res => {
 //     update(data);
 
 //   });
+
+// TWEENS
+const widthTween = d => {
+  // define interpolation
+  // d3.interpolation returns a function wihich we call 'i'
+  let i = d3.interpolate(0, x.bandwidth());
+
+  // return a function which takes in a timer ticker 't'
+  return function(t) {
+    // return the value from passing the ticker into the interpolation
+    return i(t);
+  };
+};
