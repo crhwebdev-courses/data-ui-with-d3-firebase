@@ -13,7 +13,7 @@ const graph = svg
   .append('g')
   .attr('transform', `translate(${cent.x}, ${cent.y})`);
 
-// create funtion to generate pie chart using d3 pie function - will
+// create funtion to generate pie chart angles using d3 pie function - will
 // use the cost element from data that is passed in to create chart
 const pie = d3
   .pie()
@@ -26,4 +26,31 @@ const angles = pie([
   { name: 'gaming', cost: 200 }
 ]);
 
-console.log(angles);
+const arcPath = d3
+  .arc()
+  .outerRadius(dims.radius)
+  .innerRadius(dims.radius / 2);
+
+// data array and firestore
+var data = [];
+
+db.collection('expenses').onSnapshot(res => {
+  res.docChanges().forEach(change => {
+    const doc = { ...change.doc.data(), id: change.doc.id };
+
+    switch (change.type) {
+      case 'added':
+        data.push(doc);
+        break;
+      case 'modified':
+        const index = data.findIndex(item => item.id === doc.id);
+        data[index] = doc;
+        break;
+      case 'removed':
+        data = data.filter(item => item.id !== doc.id);
+        break;
+      default:
+        break;
+    }
+  });
+});
