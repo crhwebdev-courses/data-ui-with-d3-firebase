@@ -31,6 +31,11 @@ const arcPath = d3
   .outerRadius(dims.radius)
   .innerRadius(dims.radius / 2);
 
+// update function
+const update = data => {
+  console.log(data);
+};
+
 // data array and firestore
 var data = [];
 
@@ -53,4 +58,6 @@ db.collection('expenses').onSnapshot(res => {
         break;
     }
   });
+
+  update(data);
 });
