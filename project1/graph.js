@@ -40,16 +40,26 @@ const update = data => {
   color.domain(data.map(d => d.name));
 
   // join enhanced (pie) data to path elements
-  const paths = graph.selectAll('path').data(pie(data));
+  const paths = graph
+    .selectAll('path')
+    .data(pie(data))
+    .attr('d', arcPath)
+    .attr('fill', d => color(d.data.name))
+    .attr('stroke', '#fff')
+    .attr('stroke-width', 3);
 
+  // handel exit selection
+  paths.exit().remove();
+
+  // handel enter selection
   paths
     .enter()
     .append('path')
     .attr('class', 'arc')
     .attr('d', arcPath)
+    .attr('fill', d => color(d.data.name))
     .attr('stroke', '#fff')
-    .attr('stroke-width', 3)
-    .attr('fill', d => color(d.data.name));
+    .attr('stroke-width', 3);
 };
 
 // data array and firestore
