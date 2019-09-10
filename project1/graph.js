@@ -101,3 +101,12 @@ const arcTweenEnter = d => {
     return arcPath(d);
   };
 };
+
+const arcTweenExit = d => {
+  let i = d3.interpolate(d.startAngle, d.endAngle);
+
+  return function(t) {
+    d.startAngle = i(t);
+    return arcPath(d);
+  };
+};
