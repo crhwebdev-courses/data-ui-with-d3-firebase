@@ -51,7 +51,11 @@ const update = data => {
     .remove();
 
   // handle the current DOM path updates
-  paths.attr('d', arcPath);
+  paths
+    .attr('d', arcPath)
+    .transition()
+    .duration(750)
+    .attrTween('d', arcTweenUpdate);
 
   // handel enter selection
   paths
@@ -61,6 +65,11 @@ const update = data => {
     .attr('fill', d => color(d.data.name))
     .attr('stroke', '#fff')
     .attr('stroke-width', 3)
+    // apply a function to each entery to set current path on it
+    .each(function(d) {
+      this._current = d;
+    })
+    //apply a tween animation
     .transition()
     .duration(750)
     .attrTween('d', arcTweenEnter);
@@ -94,7 +103,7 @@ db.collection('expenses').onSnapshot(res => {
 
 // create a custom animation for the pie chart
 const arcTweenEnter = d => {
-  // create a functin that returns a range of values
+  // create a function that returns a range of values
   // between the ending angle nd starting angle of each wedge
   let i = d3.interpolate(d.endAngle, d.startAngle);
 
@@ -115,3 +124,16 @@ const arcTweenExit = d => {
     return arcPath(d);
   };
 };
+
+// use function keyword so we can use 'this' keyword inside
+function arcTweenUpdate(d) {
+  // interpolate between the two objects
+  let i = d3.interpolate(this._current, d);
+
+  // update the current prop with new updated data
+  this._current = d;
+
+  return function(t) {
+    return arcPath(i(t));
+  };
+}
