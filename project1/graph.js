@@ -37,7 +37,7 @@ const color = d3.scaleOrdinal(d3['schemeSet3']);
 // legend setup
 const legendGroup = svg
   .append('g')
-  .attr('transform', `translate(${dims.width + 40}, 10)`);
+  .attr('transform', `translate(${dims.width + 40}, 30)`);
 
 const legend = d3
   .legendColor()
