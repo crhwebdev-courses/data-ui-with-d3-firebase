@@ -53,10 +53,12 @@ const update = data => {
     .enter()
     .append('path')
     .attr('class', 'arc')
-    .attr('d', arcPath)
     .attr('fill', d => color(d.data.name))
     .attr('stroke', '#fff')
-    .attr('stroke-width', 3);
+    .attr('stroke-width', 3)
+    .transition()
+    .duration(750)
+    .attrTween('d', arcTweenEnter);
 };
 
 // data array and firestore
@@ -89,11 +91,13 @@ db.collection('expenses').onSnapshot(res => {
 const arcTweenEnter = d => {
   // create a functin that returns a range of values
   // between the ending angle nd starting angle of each wedge
-  let i = d3.interpoloate(d.endAngle, d.startAngle);
+  let i = d3.interpolate(d.endAngle, d.startAngle);
 
   // return a function that takes a ticker value t and
   // sets the startAngle using a value corresponding to the ticker value
+  // and then creates a new arcPath and returns it
   return function(t) {
     d.startAngle = i(t);
+    return arcPath(d);
   };
 };
