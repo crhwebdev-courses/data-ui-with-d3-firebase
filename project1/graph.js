@@ -162,14 +162,14 @@ function arcTweenUpdate(d) {
 // event handlers
 const handleMouseOver = (d, i, n) => {
   d3.select(n[i])
-    .transition()
+    .transition('changeSliceFill')
     .duration(300)
     .attr('fill', '#fff');
 };
 
 const handleMouseOut = (d, i, n) => {
   d3.select(n[i])
-    .transition()
+    .transition('changeSliceFill')
     .duration(300)
     .attr('fill', color(d.data.name));
 };
