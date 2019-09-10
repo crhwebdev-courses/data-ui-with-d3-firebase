@@ -50,7 +50,10 @@ const tip = d3
   .tip()
   .attr('class', 'tip card')
   .html(d => {
-    return `<p>Hello there</p>`;
+    let content = `<div class="name">${d.data.name}</div>
+      <div class="cost">${d.data.cost}</div>
+      <div class="delete">Click slice to delete</div>`;
+    return content;
   });
 
 graph.call(tip);
