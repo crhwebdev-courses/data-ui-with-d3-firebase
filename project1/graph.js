@@ -43,7 +43,12 @@ const update = data => {
   const paths = graph.selectAll('path').data(pie(data));
 
   // handel exit selection
-  paths.exit().remove();
+  paths
+    .exit()
+    .transition()
+    .duration(750)
+    .attrTween('d', arcTweenExit)
+    .remove();
 
   // handle the current DOM path updates
   paths.attr('d', arcPath);
