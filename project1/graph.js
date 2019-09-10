@@ -40,16 +40,13 @@ const update = data => {
   color.domain(data.map(d => d.name));
 
   // join enhanced (pie) data to path elements
-  const paths = graph
-    .selectAll('path')
-    .data(pie(data))
-    .attr('d', arcPath)
-    .attr('fill', d => color(d.data.name))
-    .attr('stroke', '#fff')
-    .attr('stroke-width', 3);
+  const paths = graph.selectAll('path').data(pie(data));
 
   // handel exit selection
   paths.exit().remove();
+
+  // handle the current DOM path updates
+  paths.attr('d', arcPath);
 
   // handel enter selection
   paths
