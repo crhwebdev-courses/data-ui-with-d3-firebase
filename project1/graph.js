@@ -176,5 +176,8 @@ const handleMouseOut = (d, i, n) => {
 };
 
 const handleClick = d => {
-  console.log(d);
+  const id = d.data.id;
+  db.collection('expenses')
+    .doc(id)
+    .delete();
 };
