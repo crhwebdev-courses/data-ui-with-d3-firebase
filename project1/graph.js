@@ -84,3 +84,16 @@ db.collection('expenses').onSnapshot(res => {
 
   update(data);
 });
+
+// create a custom animation for the pie chart
+const arcTweenEnter = d => {
+  // create a functin that returns a range of values
+  // between the ending angle nd starting angle of each wedge
+  let i = d3.interpoloate(d.endAngle, d.startAngle);
+
+  // return a function that takes a ticker value t and
+  // sets the startAngle using a value corresponding to the ticker value
+  return function(t) {
+    d.startAngle = i(t);
+  };
+};
