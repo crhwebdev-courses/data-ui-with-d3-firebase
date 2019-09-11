@@ -33,12 +33,24 @@ const update = data => {
   y.domain([0, d3.max(data, d => d.distance)]);
 
   // create axes
-  const xAxis = d3.axisBottom(x).ticks(4);
-  const yAxis = d3.axisLeft(y).ticks(4);
+  const xAxis = d3
+    .axisBottom(x)
+    .ticks(4)
+    .tickFormat(d3.timeFormat('%b %d'));
+  const yAxis = d3
+    .axisLeft(y)
+    .ticks(4)
+    .tickFormat(d => `${d} m`);
 
   // call axes
   xAxisGroup.call(xAxis);
   yAxisGroup.call(yAxis);
+
+  // rotate axis text
+  xAxisGroup
+    .selectAll('text')
+    .attr('transform', 'rotate(-40)')
+    .attr('text-anchor', 'end');
 };
 
 // data and firestore
