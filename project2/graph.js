@@ -28,7 +28,17 @@ const yAxisGroup = graph.append('g').attr('class', 'x-axis');
 
 // graph update function
 const update = data => {
-  console.log(data);
+  // set scale domains
+  x.domain(d3.extent(data, d => new Date(d.date)));
+  y.domain([0, d3.max(data, d => d.distance)]);
+
+  // create axes
+  const xAxis = d3.axisBottom(x).ticks(4);
+  const yAxis = d3.axisLeft(y).ticks(4);
+
+  // call axes
+  xAxisGroup.call(xAxis);
+  yAxisGroup.call(yAxis);
 };
 
 // data and firestore
