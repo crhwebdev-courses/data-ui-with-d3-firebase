@@ -43,6 +43,9 @@ const path = graph.append('path');
 const update = data => {
   data = data.filter(item => item.activity === activity);
 
+  //sort data by date so that lines draw correctly
+  data = data.sort((a, b) => new Date(a.date) - new Date(b.date));
+
   // set scale domains
   x.domain(d3.extent(data, d => new Date(d.date)));
   y.domain([0, d3.max(data, d => d.distance)]);
