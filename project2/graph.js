@@ -26,6 +26,19 @@ const xAxisGroup = graph
 
 const yAxisGroup = graph.append('g').attr('class', 'x-axis');
 
+// d3 line path generator
+const line = d3
+  .line()
+  .x(function(d) {
+    return x(new Date(d.date));
+  })
+  .y(function(d) {
+    return y(d.distance);
+  });
+
+// line path element
+const path = graph.append('path');
+
 // graph update function
 const update = data => {
   data = data.filter(item => item.activity === activity);
@@ -33,6 +46,14 @@ const update = data => {
   // set scale domains
   x.domain(d3.extent(data, d => new Date(d.date)));
   y.domain([0, d3.max(data, d => d.distance)]);
+
+  // update path data
+  path
+    .data([data])
+    .attr('fill', 'none')
+    .attr('stroke', '#00bfa5')
+    .attr('stroke-width', 2)
+    .attr('d', line);
 
   // create circles for objects
   const circles = graph.selectAll('circle').data(data);
