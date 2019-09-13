@@ -39,6 +39,15 @@ const line = d3
 // line path element
 const path = graph.append('path');
 
+// create dotted line group and append to graph
+const dottedLineGroup = graph.append('g');
+
+// create x dotted line and append to dotted line group
+const xDottedLine = dottedLineGroup.append('line');
+
+// create y dotted line and append to dooted line group
+const yDottedLine = dottedLineGroup.append('line');
+
 // graph update function
 const update = data => {
   data = data.filter(item => item.activity === activity);
@@ -80,11 +89,35 @@ const update = data => {
   graph
     .selectAll('circle')
     .on('mouseover', (d, i, n) => {
-      d3.select(n[i])
+      const target = d3.select(n[i]);
+      const cx = target.attr('cx');
+      const cy = target.attr('cy');
+      target
         .transition()
         .duration(100)
         .attr('r', 8)
         .attr('fill', '#fff');
+      // set x dotted line coords (x1, x2, y1, y2)
+      xDottedLine
+        .attr('x1', cx)
+        .attr('y1', cy)
+        .attr('x2', 0)
+        .attr('y2', cy)
+        .attr('stroke', '#ccc')
+        .attr('stroke-width', 1)
+        .attr('stroke-dasharray', 5);
+      // set y dotted line coords (x1, x2,y1,y2)
+      yDottedLine
+        .attr('x1', cx)
+        .attr('y1', cy)
+        .attr('x2', cx)
+        .attr('y2', graphHeight)
+        .attr('stroke', '#ccc')
+        .attr('stroke-width', 2)
+        .attr('stroke-width', 1)
+        .attr('stroke-dasharray', 5);
+      // show the dotted line group (.style, opacity)
+      dottedLineGroup.style('opacity', 1);
     })
     .on('mouseout', (d, i, n) => {
       d3.select(n[i])
@@ -92,6 +125,8 @@ const update = data => {
         .duration(100)
         .attr('r', 4)
         .attr('fill', '#ccc');
+      // hide the dotted line group (.style, opacity)
+      dottedLineGroup.style('opacity', 0);
     });
 
   // create axes
