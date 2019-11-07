@@ -19,12 +19,12 @@ const data = [
   { name: 'punk', parent: 'music', amount: 5 },
   { name: 'jazz', parent: 'music', amount: 2 },
   { name: 'pop', parent: 'music', amount: 3 },
-  { name: 'classical', parent: 'music', amount: 5 },
+  { name: 'classical', parent: 'music', amount: 5 }
 ];
 
-const stratify = d3.stratify()
+const stratify = d3
+  .stratify()
   .id(d => d.name)
   .parentId(d => d.parent);
 
 console.log(stratify(data));
-© 2019 GitHub, Inc.
