@@ -40,4 +40,10 @@ const stratify = d3
 
 const rootNode = stratify(data).sum(d => d.amount);
 
-console.log(rootNode);
+//create bubble pack
+const pack = d3
+  .pack()
+  .size([960, 700])
+  .padding(5);
+
+console.log(pack(rootNode));
