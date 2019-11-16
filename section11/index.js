@@ -46,4 +46,4 @@ const pack = d3
   .size([960, 700])
   .padding(5);
 
-console.log(pack(rootNode));
+console.log(pack(rootNode).descendants());
