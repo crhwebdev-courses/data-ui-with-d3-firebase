@@ -30,10 +30,14 @@ const svg = d3
   .attr("height", 800);
 
 // create graph group
-const graph = svg.append("g").attr("transform", "translate(50, 50");
+const graph = svg.append("g").attr("transform", "translate(50, 50)");
 
 //create stratify
 const stratify = d3
   .stratify()
   .id(d => d.name)
   .parentId(d => d.parent);
+
+const rootNode = stratify(data);
+
+console.log(rootNode);
