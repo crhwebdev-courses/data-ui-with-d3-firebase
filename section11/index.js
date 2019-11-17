@@ -47,3 +47,18 @@ const pack = d3
   .padding(5);
 
 const bubbleData = pack(rootNode).descendants();
+
+// join data and add group for each node
+const nodes = graph
+  .selectAll("g")
+  .data(bubbleData)
+  .enter()
+  .append("g")
+  .attr("transform", d => `translate(${d.x}, ${d.y})`);
+
+nodes
+  .append("circle")
+  .attr("r", d => d.r)
+  .attr("stroke", "white")
+  .attr("stroke-width", 2)
+  .attr("fill", "purple");
