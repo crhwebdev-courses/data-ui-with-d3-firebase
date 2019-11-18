@@ -62,3 +62,12 @@ nodes
   .attr("stroke", "white")
   .attr("stroke-width", 2)
   .attr("fill", "purple");
+
+nodes
+  .filter(d => !d.children)
+  .append("text")
+  .attr("text-anchor", "middle")
+  .attr("dy", "0.3em")
+  .attr("fill", "white")
+  .style("font-size", d => d.value * 5)
+  .text(d => d.data.name);
