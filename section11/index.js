@@ -48,6 +48,9 @@ const pack = d3
 
 const bubbleData = pack(rootNode).descendants();
 
+// create ordinal scale
+const color = d3.scaleOrdinal(["#1c4e9", "#b39ddb", "#9575cd"]);
+
 // join data and add group for each node
 const nodes = graph
   .selectAll("g")
@@ -61,7 +64,7 @@ nodes
   .attr("r", d => d.r)
   .attr("stroke", "white")
   .attr("stroke-width", 2)
-  .attr("fill", "purple");
+  .attr("fill", d => color(d.depth));
 
 nodes
   .filter(d => !d.children)
