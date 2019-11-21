@@ -10,10 +10,10 @@ const department = document.querySelector("#department");
 
 form.addEventListener("submit", e => {
   e.preventDefault();
-  console.log(name.value, parent.value, department.value);
-  // db.collection("employees").add({
-  //   name: name.value,
-  //   parent: parent.value,
-  //   department: department.value
-  // });
+
+  db.collection("employees").add({
+    name: name.value,
+    parent: parent.value,
+    department: department.value
+  });
 });
