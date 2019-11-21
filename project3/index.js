@@ -16,4 +16,9 @@ form.addEventListener("submit", e => {
     parent: parent.value,
     department: department.value
   });
+
+  var instance = M.Modal.getInstance(modal);
+  instance.close();
+
+  form.reset();
 });
