@@ -20,3 +20,5 @@ db.collection("employees").onSnapshot(res => {
     }
   });
 });
+
+console.log(data);
