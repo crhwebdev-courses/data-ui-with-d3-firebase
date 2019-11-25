@@ -8,6 +8,19 @@ const svg = d3
 
 const graph = svg.append("g").attr("transform", "translate(50, 50)");
 
+// data strat
+const stratify = d3
+  .stratify()
+  .id(d => d.name)
+  .parentId(d => d.parent);
+
+// update function
+const update = data => {
+  // get updated root Node data
+  const rootNode = stratify(data);
+  console.log(rootNode);
+};
+
 var data = [];
 
 db.collection("employees").onSnapshot(res => {
@@ -29,6 +42,6 @@ db.collection("employees").onSnapshot(res => {
         break;
     }
   });
-});
 
-console.log(data);
+  update(data);
+});
