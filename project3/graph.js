@@ -14,11 +14,16 @@ const stratify = d3
   .id(d => d.name)
   .parentId(d => d.parent);
 
+const tree = d3.tree().size([dims.width, dims.height]);
+
 // update function
 const update = data => {
   // get updated root Node data
   const rootNode = stratify(data);
-  console.log(rootNode);
+  // console.log(rootNode);
+
+  const treeData = tree(rootNode);
+  console.log(treeData);
 };
 
 var data = [];
